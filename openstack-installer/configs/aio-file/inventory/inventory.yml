@@ -1,0 +1,93 @@
+controller:
+  openstack-aio:
+    ip:
+      mgmt: 10.0.0.11
+
+# -------- infrastructure --------
+pacemaker:
+  inherit: controller
+
+haproxy:
+  inherit: pacemaker
+
+memcached:
+  inherit: controller
+
+rabbitmq:
+  inherit: controller
+
+galera:
+  inherit: pacemaker
+
+mongodb:
+  inherit: controller
+
+syslog:
+  inherit:
+    - compute
+    - controller
+
+# -------- OpenStack ---------
+keystone:
+  inherit: controller
+
+glance:
+  inherit: controller
+
+horizon:
+  inherit: controller
+
+nova_controller:
+  inherit: controller
+
+nova_compute:
+  inherit: compute
+
+neutron_controller:
+  inherit: controller
+
+neutron_compute:
+  inherit: compute
+
+ceilometer_controller:
+  inherit: controller
+
+ceilometer_compute:
+  inherit: compute
+
+heat:
+  inherit: controller
+
+trove:
+
+cinder:
+  inherit: controller
+
+cinder_volume:
+  inherit: controller
+
+murano:
+  inherit: controller
+
+sahara:
+  inherit: controller
+
+ironic:
+
+# -------- Tempest ------
+tempest:
+  localhost:
+    ip:
+      mgmt: 127.0.0.1
+    ansible_connection: local
+
+# -------- Ceph ---------
+ceph_monitor:
+
+ceph_osd:
+
+ceph_radosgw:
+
+# -------- Compute --------
+compute:
+  inherit: controller
